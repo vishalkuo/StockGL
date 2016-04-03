@@ -110,13 +110,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <None Include="FShader.glsl" />
     <None Include="packages.config" />
+    <None Include="VShader.glsl" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Shader_Loader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Point.h" />
+    <ClInclude Include="Shader_Loader.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
