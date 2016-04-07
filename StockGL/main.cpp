@@ -1,5 +1,4 @@
 #include <iostream>
-#include "Point.h"
 #include "Shader_Loader.h"
 #include "ShaderModels.h"
 
@@ -21,13 +20,12 @@ Models::ShaderModels *models;
 void renderScene(void)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glClearColor(0.0, 0.0, 0.3, 1.0);//clear red
+	glClearColor(0.0, 0.0, 0.3, 1.0);
 
 	glBindVertexArray(models->getModel("basicModel"));
 	glUseProgram(program);
 
-	//draw 3 vertices as triangles
-	glDrawArrays(GL_TRIANGLES, 0, 3);
+	glDrawArrays(GL_LINE_STRIP, 0, 2000);
 
 	glutSwapBuffers();
 }
@@ -48,16 +46,15 @@ void Init()
 	program = shaderLoader.CreateProgram("VShader.glsl",
 		"FShader.glsl");
 	models = new Models::ShaderModels();
-	models->createBasicModel("basicModel");
+	
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
+	attribute_coord2d = glGetAttribLocation(program, "coord2d"	);
+	models->createLineModel("basicModel", attribute_coord2d);
 }
 
 int main(int argc, char **argv)
 {
-
-	point *graph = produceGraph();
-
-
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
 	glutInitWindowPosition(100, 100);

@@ -1,5 +1,5 @@
 #include "ShaderModels.h"
-
+#include "Point.h"
 using namespace Models;
 
 
@@ -42,6 +42,35 @@ void ShaderModels::createBasicModel(const std::string & modelName)
 	model.vao = vao;
 	model.vbos.push_back(vbo);
 	ModelMap[modelName] = model;
+}
+
+void ShaderModels::createLineModel(const std::string &lineName, const GLint &attrib_coord2d)
+{
+	unsigned int vao;
+	unsigned int vbo;
+
+	glGenVertexArrays(1, &vao);
+	glBindVertexArray(vao);
+
+	point graph[2000];
+
+	for (int i = 0; i < 2000; i++) {
+		float x = (i - 1000.0) / 100.0;
+		graph[i].x = x;
+		graph[i].y = sin(x * 10.0) / (1.0 + x * x);
+	}
+
+	glGenBuffers(1, &vbo);
+	glBindBuffer(GL_ARRAY_BUFFER, vbo);
+	glBufferData(GL_ARRAY_BUFFER, sizeof graph, graph, GL_STATIC_DRAW);
+	
+	glEnableVertexAttribArray(attrib_coord2d);
+	glVertexAttribPointer(attrib_coord2d, 2, GL_FLOAT, GL_FALSE, 0, (void*)0);
+	
+	Model model;
+	model.vao = vao;
+	model.vbos.push_back(vbo);
+	ModelMap[lineName] = model;
 }
 
 void ShaderModels::deleteModel(const std::string &modelName)

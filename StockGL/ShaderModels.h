@@ -21,6 +21,7 @@ namespace Models
 		ShaderModels();
 		~ShaderModels();
 		void createBasicModel(const std::string &modelName);
+		void createLineModel(const std::string &lineName, const GLint& attrib);
 		void deleteModel(const std::string &modelName);
 		unsigned int getModel(const std::string &modelName);
 	private:
