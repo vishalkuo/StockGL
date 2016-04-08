@@ -52,17 +52,11 @@ void ShaderModels::createLineModel(const std::string &lineName, const GLint &att
 	glGenVertexArrays(1, &vao);
 	glBindVertexArray(vao);
 
-	point graph[2000];
-
-	for (int i = 0; i < 2000; i++) {
-		float x = (i - 1000.0) / 100.0;
-		graph[i].x = x;
-		graph[i].y = sin(x * 10.0) / (1.0 + x * x);
-	}
+	std::vector<point> graph = produceGraph();
 
 	glGenBuffers(1, &vbo);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
-	glBufferData(GL_ARRAY_BUFFER, sizeof graph, graph, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(point) * 2000, &graph[0], GL_STATIC_DRAW);
 	
 	glEnableVertexAttribArray(attrib_coord2d);
 	glVertexAttribPointer(attrib_coord2d, 2, GL_FLOAT, GL_FALSE, 0, (void*)0);
