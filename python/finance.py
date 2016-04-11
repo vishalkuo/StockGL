@@ -4,14 +4,15 @@ base_url = 'http://ichart.finance.yahoo.com/table.csv'
 config = ConfigParser.SafeConfigParser()
 global_config_header = 'global'
 config.read('config.ini')
-ticker = config.get(global_config_header, 'ticker')
+tickers = config.get(global_config_header, 'tickers')
 month_to = config.get(global_config_header, 'month_to')
 day_to = config.get(global_config_header, 'day_to')
 year_to = config.get(global_config_header, 'year_to')
 month_from = config.get(global_config_header, 'month_from')
 day_from = config.get(global_config_header, 'day_from')
 year_from = config.get(global_config_header, 'year_from')
-payload = {
+for ticker in tickers.split(','):
+	payload = {
 	's': ticker,
 	'd': month_to,
 	'e': day_to,
@@ -21,8 +22,7 @@ payload = {
 	'b': day_from,
 	'c': year_from,
 	'ignore': '.csv'
-}
-
-r = requests.get(base_url, params=payload)
-
-print(r.text)
+	}	
+	r = requests.get(base_url, params=payload)
+	with open('{0}.csv'.format(ticker), 'w') as f:
+		f.write(r.text)
