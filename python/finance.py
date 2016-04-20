@@ -1,5 +1,13 @@
 import requests
 import ConfigParser
+import os
+from os import path
+from os.path import join
+
+
+current_path = path.realpath(path.join(os.getcwd(), path.dirname(__file__)))
+resources_path = path.join(current_path, os.pardir, 'StockGL', 'Resources')
+
 base_url = 'http://ichart.finance.yahoo.com/table.csv'
 config = ConfigParser.SafeConfigParser()
 global_config_header = 'global'
@@ -24,5 +32,5 @@ for ticker in tickers.split(','):
 	'ignore': '.csv'
 	}	
 	r = requests.get(base_url, params=payload)
-	with open('{0}.csv'.format(ticker), 'w') as f:
+	with open('{0}/{1}.csv'.format(resources_path, ticker), 'w') as f:
 		f.write(r.text)
