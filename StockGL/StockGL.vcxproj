@@ -115,11 +115,13 @@
     <None Include="VShader.glsl" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CSVReader.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ShaderModels.cpp" />
     <ClCompile Include="Shader_Loader.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CSVParser.h" />
     <ClInclude Include="Point.h" />
     <ClInclude Include="ShaderModels.h" />
     <ClInclude Include="Shader_Loader.h" />
